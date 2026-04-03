@@ -38,7 +38,7 @@ public class MetricDAO {
                 if(txn.isActive()){
                     txn.rollback();
                 }
-                throw new RuntimeException("Save/Update failed", e);
+                LOGGER.info("Save/Update failed", e);
             }
             finally {
                 entityManager.close();
@@ -58,7 +58,7 @@ public class MetricDAO {
 
         criteriaQuery.where(criteriaBuilder.and(
                 criteriaBuilder.equal(root.get("serviceName"), serviceName),
-                criteriaBuilder.greaterThanOrEqualTo(root.get("timestamp"), startTime)
+                criteriaBuilder.greaterThanOrEqualTo(root.get("createdAt"), startTime)
         ));
 
         criteriaQuery.groupBy(root.get("serviceName"));

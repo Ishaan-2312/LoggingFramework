@@ -18,7 +18,7 @@ public class MetricController {
     private MetricService metricService;
 
     @GetMapping("/getThroughputMetrics")
-    public ResponseEntity<DataResponseDTO> getThroughputMetrics(@RequestParam("serviceName") String serviceName, @RequestParam("startTime")LocalDateTime startTime){
+    public ResponseEntity<DataResponseDTO> getThroughputMetrics(@RequestParam("serviceName") String serviceName, @RequestParam(value = "startTime",required = false)LocalDateTime startTime){
         return ResponseEntity.ok(metricService.getThroughputMetrics(serviceName,startTime));
     }
 }
