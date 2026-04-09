@@ -19,7 +19,14 @@ public class LoggerService {
     }
 
     public DataResponseDTO getLoggersByServiceName(String serviceName) {
-        return loggerBusiness.getLoggersByServiceName(serviceName);
+        List<LogEvent> logEventList = loggerBusiness.getLoggersByServiceName(serviceName);
+        if(!logEventList.isEmpty()){
+            return DataResponseDTO.builder().statusCode(200).message("Received the Log Events for ServiceName :"+ serviceName).data(logEventList).build();
+
+        }
+
+        return DataResponseDTO.builder().statusCode(404).message("Unable to find any LogEvents corresponding to ServiceName "+serviceName).build();
+
     }
 
     public DataResponseDTO getLoggersByServiceNameAndTime(String serviceName, LocalDateTime time) {

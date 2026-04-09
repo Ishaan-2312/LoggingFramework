@@ -16,7 +16,7 @@ public class LogEvent {
     private String level;
     private String message;
     private LocalDateTime timestamp;
-    private Map<Object,Object> metadata;
+    private Map<String,Object> metadata;
 
 
 }

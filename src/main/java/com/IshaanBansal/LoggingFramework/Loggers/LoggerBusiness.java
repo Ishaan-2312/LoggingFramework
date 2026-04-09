@@ -35,7 +35,7 @@ public class LoggerBusiness {
 
     }
 
-    public DataResponseDTO getLoggersByServiceName(String serviceName) {
+    public List<LogEvent> getLoggersByServiceName(String serviceName) {
 
         List<LogBatchRequest> logEvents = new ArrayList<>();
         LOGGER.info("ServiceName :{}",serviceName);
@@ -52,19 +52,13 @@ public class LoggerBusiness {
             }
         }
         if(logEventList.isEmpty())LOGGER.info("LogEvents List is Empty");
-        if(!logEventList.isEmpty()){
-            return DataResponseDTO.builder().statusCode(200).message("Received the Log Events for ServiceName :"+ serviceName).data(logEvents).build();
-
-        }
-
-        return DataResponseDTO.builder().statusCode(404).message("Unable to find any LogEvents corresponding to ServiceName "+serviceName).build();
-
+        return logEventList;
 
     }
 
     public DataResponseDTO getLoggersByServiceNameAndTime(String serviceName, LocalDateTime time) {
         List<LogBatchRequest> logEvents = new ArrayList<>();
-        LOGGER.info("ServiceName :{}",serviceName);
+//        LOGGER.info("ServiceName :{}",serviceName);
 
         logEvents = loggerDAO.getLogEventsByServiceNameAndTime(serviceName,time);
         List<LogEvent> logEventList = new ArrayList<>();
@@ -77,7 +71,7 @@ public class LoggerBusiness {
                 }
             }
         }
-        if(logEventList.isEmpty())LOGGER.info("LogEvents List is Empty");
+//        if(logEventList.isEmpty())LOGGER.info("LogEvents List is Empty");
         if(!logEventList.isEmpty()){
             return DataResponseDTO.builder().statusCode(200).message("Received the Log Events for ServiceName :"+ serviceName).data(logEvents).build();
 
